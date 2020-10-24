@@ -1,0 +1,42 @@
+# Set docker-compose version
+version: '3'
+#volumes:
+#  mysql_data: {}
+      # - ELASTICSEARCH_URL= elasticsearch:9200
+networks:
+  postgres_db_networks:
+    external: true
+services:
+  db:
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=secret
+      # Docker Windows
+      # - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    image: postgres
+    networks:
+      - postgres_db_networks 
+# volumes:
+#   data-postgresql:
+#     external: true
+
+#   elasticsearch:
+#     image: docker.elastic.co/elasticsearch/elasticsearch:6.4.2
+#     environment:
+#       - cluster.name=docker-cluster
+#       - bootstrap.memory_lock=true
+#       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#     volumes:
+#       - ./docker_data/elasticsearch/data:/usr/share/elasticsearch/data
+#     ports:
+#       - 9200:9200
+#
+#
+# # Environment variables that allow my app to find other services
+#     environment:
+#       REDISTOGO_URL: "redis://redis:6379"
+#       POSTGRES_USER: postgres
+#       POSTGRES_HOST: db
+#       ELASTICSEARCH_URL: "http://elasticsearch:9200"
